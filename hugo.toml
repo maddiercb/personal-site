@@ -1,0 +1,30 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Maddie Burroughs'
+disableKinds = ["taxonomy"]
+
+[params]
+  author = "maddie burroughs"
+  authorDescription = "designer && developer"
+
+[menu]
+    [[menu.main]]
+        identifier = "Home"
+        name="Home"
+        url="/"
+        weight = -100
+    [[menu.main]]
+        identifier = "Projects"
+        name="Projects"
+        url="/projects"
+        weight = -80
+    [[menu.main]]
+        identifier = "Resume"
+        name="Resume"
+        url="/files/resume.pdf"
+        weight = -70
+    [[menu.main]]
+        identifier = "Blog"
+        name="Blog"
+        url="/blog/"
+        weight = -60

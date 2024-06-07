@@ -1,0 +1,14 @@
+.container {
+    margin-left: 8%;
+    margin-right: 8%;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.project {
+    // width: 30%;
+    flex: 0 0 30%;
+    margin-right: 2%;
+}
+
