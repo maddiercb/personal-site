@@ -1,6 +1,9 @@
 {{ define "main" }}
 {{ partial "header/site-nav" . }}
+
 {{ .Title }}
+{{ .Description }}
+
 <div class="container">
     {{ range .Pages }}
     <div class="card">
@@ -9,7 +12,7 @@
             <img src={{$asset.RelPermalink}} alt="">
             <div class="card-content">
                 <h2>{{ .Title }}</h2>
-                <p> words wrods balch blah </p>
+                <p>{{ .Description }}</p>
             </div>
             </img>
         </a>

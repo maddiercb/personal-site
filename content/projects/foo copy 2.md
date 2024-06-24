@@ -5,6 +5,9 @@ description = 'wowowowowow'
 
 image = "/images/test.jpg"
 
+thumb = "schmidttyyyy"
+
+
 +++
 
 dogdogodogd

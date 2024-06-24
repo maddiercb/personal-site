@@ -3,7 +3,10 @@ title = 'Proj 1'
 
 description = "penis"
 
-image = "/images/test.jpg"
+image = "/images/leaf-cover.png"
+
+thumb = "schmidttyyyy"
+
 +++
 
 woah lights go brr
