@@ -1,14 +1,21 @@
 {{ define "main" }}
 {{ partial "header/site-nav" . }}
 {{ .Title }}
-<div class="container"> 
+<div class="container">
     {{ range .Pages }}
-        <a href="{{ .Permalink }}" class="project">
-            <div>
-                <h1 class="project-title">{{.Title}}</h1>
+    <div class="card">
+        <a href="{{ .Permalink }}">
+            {{ $asset:= resources.Get .Params.Image }}
+            <img src={{$asset.RelPermalink}} alt="">
+            <div class="card-content">
+                <h2>{{ .Title }}</h2>
+                <p> words wrods balch blah </p>
             </div>
+            </img>
         </a>
-    {{ end  }}
+    </div>
+
+    {{ end }}
 </div>
 
 {{ end }}

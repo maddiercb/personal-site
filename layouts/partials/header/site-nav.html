@@ -1,27 +1,23 @@
-<header class="">
-    <div class="cluster justify:space-between margin:s1">
-      <div class="align-items:flex-end">
-        <a href="/" class='no-color'>
-          <div class="stack">
-            <div>{{.Site.Params.Author}}</div>
-            <span>{{.Site.Params.AuthorDescription}}</span>
-          </div>
-        </a>
-        <nav class="cluster">
-          
-          <ul>
-            {{ $currentPage := . }}
-            {{ range .Site.Menus.main }}
-            <li class="navbar__item{{if ($currentPage.IsMenuCurrent "main" .)}} navbar__item--active {{end}}">
-              {{if ($currentPage.IsMenuCurrent "main" .)}} <span> {{ .Name }} </span> {{else}}
-              <a class="no-color" href="{{ .URL }}">
-                  {{ .Name }}
-              </a>
-              {{end}}
-            </li>
-            {{ end }}
-          </ul>
-        </nav>
-      </div>
+
+<header>
+  <div class="nav-container">
+    <div class="author-info">
+      <div class="author-name">{{.Site.Params.Author}}</div>
+      <div class="author-description">{{.Site.Params.AuthorDescription}}</div>
     </div>
-  </header>
+    <nav class="site-menu">
+      <ul>
+        {{ $currentPage := . }}
+        {{ range .Site.Menus.main }}
+        <li class="{{if ($currentPage.IsMenuCurrent "main" .)}}current-page{{end}}">
+          {{if ($currentPage.IsMenuCurrent "main" .)}}
+            <span>{{ .Name }}</span>
+          {{else}}
+            <a href="{{ .URL }}">{{ .Name }}</a>
+          {{end}}
+        </li>
+        {{ end }}
+      </ul>
+    </nav>
+  </div>
+</header>
