@@ -6,8 +6,8 @@
 
 <div class="container">
     {{ range .Pages }}
+    <a href="{{ .Permalink }}">
     <div class="card">
-        <a href="{{ .Permalink }}">
             {{ $asset:= resources.Get .Params.Image }}
             <img src={{$asset.RelPermalink}} alt="">
             <div class="card-content">
@@ -15,8 +15,8 @@
                 <p>{{ .Description }}</p>
             </div>
             </img>
-        </a>
-    </div>
+        </div>
+    </a>
 
     {{ end }}
 </div>

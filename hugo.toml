@@ -24,7 +24,7 @@ disableKinds = ["taxonomy"]
         url="/files/resume.pdf"
         weight = -70
     [[menu.main]]
-        identifier = "Blog"
-        name="Blog"
-        url="/blog/"
+        identifier = "Contact"
+        name="Contact"
+        url="/contact/"
         weight = -60

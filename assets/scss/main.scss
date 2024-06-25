@@ -28,10 +28,11 @@ body {
   cursor: pointer;
   position: relative;
   color: rgb(240, 240, 240);
-  box-shadow: inset 25px 0px 0px #F5F5F5,
-              inset -25px 0px 0px #F5F5F5,
-              inset 0 25px 0px #F5F5F5,
-              inset 0 -75px 0px #F5F5F5;
+  box-shadow: inset 25px 0px 0px $polaroid-card,
+              inset -25px 0px 0px $polaroid-card,
+              inset 0 25px 0px $polaroid-card,
+              inset 0 -75px 0px $polaroid-card,
+              10px 10px 5px rgba(0, 0, 0, 0.3);
   margin-top: 2rem;
   margin-left: 2rem;
 
@@ -50,12 +51,13 @@ body {
 
   h2 {
     position: absolute;
-    inset: auto auto 30px 30px;
+    inset: auto auto 25px 30px;
     margin: 0;
     transition: inset .3s .3s ease-out;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Cutive';
     font-weight: normal;
-    text-transform: uppercase;
+    color: $polaroid-text;
+    font-size: 1.5rem;
   }
 
   p {
@@ -63,11 +65,15 @@ body {
     opacity: 0;
     max-width: 80%;
     transition: opacity .3s ease-out;
-    inset: auto auto 80px 30px;
+    inset: auto auto 10px 40px;
+    color: $polaroid-text;
+    font-family: 'Cutive';
+    font-size: 0.75rem;
   }
 
   &:hover h2 {
-    inset: auto auto 220px 30px;
+    inset: auto auto 45px 30px;
+    font-size: 1.0rem;
     transition: inset .3s ease-out;
   }
 

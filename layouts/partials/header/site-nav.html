@@ -1,4 +1,3 @@
-
 <header>
   <div class="nav-container">
     <div class="author-info">
@@ -10,8 +9,8 @@
         {{ $currentPage := . }}
         {{ range .Site.Menus.main }}
         <li class="{{if ($currentPage.IsMenuCurrent "main" .)}}current-page{{end}}">
-          {{if ($currentPage.IsMenuCurrent "main" .)}}
-            <span>{{ .Name }}</span>
+          {{if $currentPage.IsMenuCurrent "main" . }}
+            <span style="color: red;">{{ .Name }}</span>
           {{else}}
             <a href="{{ .URL }}">{{ .Name }}</a>
           {{end}}

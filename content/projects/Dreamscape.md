@@ -1,7 +1,7 @@
 +++
-title = 'Proj 1'
+title = 'Dreamscape'
 
-description = "penis"
+description = "April 2024 - Exhibition design + construction"
 
 image = "/images/leaf-cover.png"
 
