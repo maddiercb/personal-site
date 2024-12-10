@@ -1,4 +1,0 @@
-{{ $style := resources.Get "scss/main.scss" | toCSS (dict "outputStyle" "compressed") | minify | fingerprint }}
-<!-- Load CSS and fonts asynchronously to avoid blocking -->
-<!-- <link rel="preload" href="{{ $style.Permalink }}" as="style" onload="this.onload=null;this.rel='stylesheet'"> -->
-<link rel="stylesheet" href="{{ $style.Permalink }}">
