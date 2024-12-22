@@ -7,6 +7,12 @@
     <title>Homepage - Maddie Burroughs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -39,9 +45,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact.html">Contact</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -54,7 +57,7 @@
     <div class="container py-5">
         <div class="card-columns">
             <!-- HORSE GIRLS CARD -->
-            <div class="card" data-bs-toggle="modal" data-bs-target="#cardModal1">
+            <div class="card" data-bs-toggle="modal" data-bs-target="#HGcardModal">
                 <img src="./images/HorseGirls/horse_girls_cover.webp" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><em>Horse Girls</em></h5>
@@ -63,7 +66,7 @@
             </div>
 
             <!-- INTO THE WOODS CARD -->
-            <div class="card" data-bs-toggle="modal" data-bs-target="#cardModal2">
+            <div class="card" data-bs-toggle="modal" data-bs-target="#ITWcardModal">
                 <img src="./images/IntoTheWoods/ITW_cover.webp" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><em>Into the Woods</em></h5>
@@ -72,13 +75,17 @@
             </div>
 
             <!-- LEGACY BCAB CARD -->
-            <div class="card" data-bs-toggle="modal" data-bs-target="#cardModal3">
+            <div class="card" data-bs-toggle="modal" data-bs-target="#LBCABcardModal">
                 <img src="./images/Legacy/Legacy_cover.webp" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title"><em>Legacy: A Benefit Cabaret</em></h5>
                     <p class="card-text">Technical Director</p>
                 </div>
             </div>
+
+            <!-- <div>
+                MRCB - NEXT CARD GOES HERE
+            </div> -->
 
             <!-- Add more cards as needed -->
         </div>
@@ -90,12 +97,12 @@
     <!---------------------------------------------------------------------------------------->
 
     <!-- HORSE GIRLS MODAL -->
-    <div class="modal fade" id="cardModal1" tabindex="-1" aria-labelledby="cardModalLabel1" aria-hidden="true">
+    <div class="modal fade" id="HGcardModal" tabindex="-1" aria-labelledby="HGcardModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     <!-- CAROUSEL -->
-                    <div id="carouselCard1" class="carousel slide" data-bs-ride="carousel">
+                    <div id="HGcarouselCard" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src="./images/HorseGirls/horse_girls_1.webp" class="d-block w-100" alt="...">
@@ -113,12 +120,12 @@
                                 <img src="./images/HorseGirls/horse_girls_5.webp" class="d-block w-100" alt="...">
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselCard1"
+                        <button class="carousel-control-prev" type="button" data-bs-target="#HGcarouselCard"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselCard1"
+                        <button class="carousel-control-next" type="button" data-bs-target="#HGcarouselCard"
                             data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
@@ -140,12 +147,12 @@
     </div>
 
     <!-- INTO THE WOODS MODAL -->
-    <div class="modal fade" id="cardModal2" tabindex="-1" aria-labelledby="cardModalLabel2" aria-hidden="true">
+    <div class="modal fade" id="ITWcardModal" tabindex="-1" aria-labelledby="ITWcardModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     <!-- CAROUSEL -->
-                    <div id="carouselCard2" class="carousel slide" data-bs-ride="carousel">
+                    <div id="ITWcarouselCard" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src="./images/IntoTheWoods/ITW_1.webp" class="d-block w-100" alt="...">
@@ -163,12 +170,12 @@
                                 <img src="./images/IntoTheWoods/ITW_5.webp" class="d-block w-100" alt="...">
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselCard2"
+                        <button class="carousel-control-prev" type="button" data-bs-target="#ITWcarouselCard"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselCard2"
+                        <button class="carousel-control-next" type="button" data-bs-target="#ITWcarouselCard"
                             data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
@@ -190,12 +197,12 @@
     </div>
 
     <!-- LEGACY BCAB MODAL -->
-    <div class="modal fade" id="cardModal3" tabindex="-1" aria-labelledby="cardModalLabel3" aria-hidden="true">
+    <div class="modal fade" id="LBCABcardModal" tabindex="-1" aria-labelledby="LBCABcardModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     <!-- CAROUSEL -->
-                    <div id="carouselCard3" class="carousel slide" data-bs-ride="carousel">
+                    <div id="LBCABcarouselCard" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src="./images/Legacy/Legacy_1.webp" class="d-block w-100" alt="...">
@@ -213,12 +220,12 @@
                                 <img src="./images/Legacy/Legacy_5.webp" class="d-block w-100" alt="...">
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselCard3"
+                        <button class="carousel-control-prev" type="button" data-bs-target="#LBCABcarouselCard"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselCard3"
+                        <button class="carousel-control-next" type="button" data-bs-target="#LBCABcarouselCard"
                             data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
@@ -238,6 +245,10 @@
             </div>
         </div>
     </div>
+
+    <!-- <div>
+        MRCB - NEXT MODAL GOES HERE
+    </div> -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 
