@@ -42,17 +42,23 @@ body {
     letter-spacing: 0.25rem;
     font-size: 1.5rem;
     color: var(--dark-color);
-    ;
 }
 
 .navbar-tagline {
     font-size: 0.9rem;
 }
 
+.bio {
+    font-family: "DynaPuff", serif; 
+    font-size: 1rem;
+    color: var(--border-color);
+    line-height: 1.5;
+    margin: 20px;
+}
+
 .card {
     cursor: pointer;
     border: 1px solid var(--border-color);
-    ;
     box-shadow: 3px 3px 10px var(--dark-color);
     border-radius: 0.5rem;
 }
@@ -123,4 +129,36 @@ body {
 
 .carousel-inner {
     aspect-ratio: 3 / 2;
+}
+
+.maddie {
+    width: 40%;
+    min-width: 300px; 
+    max-width: 400px;
+}
+
+.maddie-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+}
+
+.maddie-container img {
+    border: 3px solid var(--dark-color);
+    border-radius: 50%;
+}
+
+.ece {
+    font-family: "Orbitron", serif;
+    color: cornflowerblue;
+    font-size: 14px;
+}
+
+.dim {
+    font-family: "Hi Melody", serif;
+    font-weight: bold;
+    color: plum;
+    font-size: 24px;
 }
