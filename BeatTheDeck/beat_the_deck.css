@@ -1,0 +1,111 @@
+/* General Reset and Theme */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* White text for contrast */
+}
+
+#top-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+#mistakes {
+    color: #ff6666; /* Red for mistakes */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 20px;
+    justify-items: center;
+}
+
+/* Card styling */
+.card {
+    position: relative;
+    width: 100px;
+    height: 150px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 10px;
+    background-color: #ffffff; /* White background for all cards */
+    overflow: hidden; /* Prevent overflow of buttons */
+}
+
+/* Red card styling */
+.red-card {
+    color: red;
+    background-color: #ffcccc; /* Light red background for red cards */
+}
+
+/* Black card styling */
+.black-card {
+    color: black;
+    background-color: #cccccc; /* Light gray background for black cards */
+}
+
+/* Center card value */
+.card .value {
+    font-size: 1.5em;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center value horizontally and vertically */
+}
+
+/* Card suit positioning */
+.card .suit {
+    font-size: 1.2em;
+    position: absolute;
+}
+
+.card .suit.top-left {
+    top: 5px;
+    left: 5px;
+    color: inherit;
+}
+
+.card .suit.bottom-right {
+    bottom: 5px;
+    right: 5px;
+    color: inherit;
+}
+
+/* Card buttons container */
+.card-buttons {
+    display: none; /* Hide buttons by default */
+    position: absolute;
+    top: 85px; /* Position buttons above the card */
+    width: 100%;
+    justify-content: center; /* Center the buttons horizontally */
+    flex-direction: column;
+    align-items: center;
+    height: 0px; /* Height for spacing between buttons */
+}
+
+/* Card button styling */
+.card-button {
+    background-color: #555555;
+    border: solid 2px black;
+    color: white;
+    font-size: 1em;
+    margin: 25px 0; /* Add margin between buttons */
+    padding: 5px;
+    text-align: center;
+    width: 28px;
+    padding-top: 1px;
+}
+
+/* Show buttons when card is hovered */
+.card:hover .card-buttons {
+    display: flex;
+}
