@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naive Storyteller</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="banner">
+        <h1>N<span style="color: cornflowerblue;">AI</span>VE STORYTELLER</h1>
+    </div>
+    
+    <div id="start-game">
+      <input type="text" id="starting-word" placeholder="Enter starting word">
+      <button onclick="startGame()">Start Game</button>
+    </div>
+  
+    <div id="sentence" style="font-size: 2em; margin-top: 20px;"></div>
+  
+    <div id="next-words-container" style="margin-top: 20px;"></div>
+  
+    <div id="game-controls" style="display: none;">
+      <button onclick="endSentence()">End Sentence</button>
+      <button onclick="deleteWord()">Delete Word</button>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
