@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Patterning</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 90vh;
+            background-color: #f4f4f4;
+        }
+
+        canvas {
+            border: 1px solid black;
+            background-color: white;
+        }
+
+        textarea {
+            width: 300px;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2 style="margin-bottom: 5px; text-align: center; transform: translateY(-225%);">Word Patterning</h2>
+    <textarea id="wordInput" placeholder="Enter a word"
+        style="display: block; margin: 0 auto 10px; width: 200px; transform: translateY(-125%);"></textarea>
+    <div style="text-align: center; margin-bottom: 10px; transform: translateY(-200%);">
+        <label for="heightInput">Height:</label>
+        <input type="number" id="heightInput" min="0" max="5" style="width: 50px; margin-right: 10px;">
+        <label for="depthInput">Depth:</label>
+        <input type="number" id="depthInput" min="0" max="5" style="width: 50px;">
+    </div>
+
+    <div style="text-align: center; margin-bottom: 20px; transform: translateY(-200%);">
+        <button onclick="updateWordAndDraw()" style="margin-right: 10px;">View Word</button>
+        <button onclick="simplifyWord()">Download</button>
+    </div>
+
+    <canvas id="canvas" width="300" height="300" style="display: block; margin: 20px auto; transform: translateY(-20%);"></canvas>
+
+    <script type="module">
+        import original from './original.js';
+        const letterLines = original;
+
+        let selectedLetterIndex = -1;
+        let positions = [];
+        let inputWord = "";
+        let patternHeight = 3;
+        let patternDepth = 1;
+
+
+
+        function updatePositions() {
+            positions = [];
+            let xOffset = 50;
+
+            for (let i = 0; i < inputWord.length; i++) {
+                let letterWidth = 0;
+                const letter = inputWord[i];
+                if (letterLines[letter]) {
+                    const lines = letterLines[letter];
+                    lines.forEach(([a, b, c, d]) => {
+                        letterWidth = Math.max(letterWidth, a, c);
+                    });
+                    positions.push({ x: xOffset, y: 0, letter: letter, width: letterWidth });
+                    xOffset += letterWidth;
+                }
+            }
+        }
+
+
+
+        function drawWord() {
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < positions.length; i++) {
+                const letterData = positions[i];
+                const letter = letterData.letter;
+                if (letterLines[letter]) {
+                    const lines = letterLines[letter];
+                    ctx.strokeStyle = (i === selectedLetterIndex) ? "red" : "black";
+                    ctx.lineWidth = 2;
+                    lines.forEach(([a, b, c, d]) => {
+                        ctx.beginPath();
+                        ctx.moveTo(a + letterData.x, b + letterData.y);
+                        ctx.lineTo(c + letterData.x, d + letterData.y);
+                        ctx.stroke();
+                    });
+                }
+            }
+        }
+
+
+
+        function selectLetter(event) {
+            const x = event.offsetX;
+            const y = event.offsetY;
+            let foundLetter = false;
+
+            positions.forEach((position, index) => {
+                const minX = position.x;
+                const maxX = position.x + position.width;
+                const minY = position.y;
+                const maxY = minY + 70;
+
+                if (x > minX && x < maxX && y > minY && y < maxY) {
+                    selectedLetterIndex = index;
+                    drawWord();
+                    foundLetter = true;
+                }
+            });
+
+            if (!foundLetter) {
+                selectedLetterIndex = -1;
+                drawWord();
+            }
+        }
+
+
+
+        function nudgeLetter(event) {
+            if (selectedLetterIndex !== -1) {
+                const position = positions[selectedLetterIndex];
+                if (event.key === "ArrowUp") {
+                    position.y = Math.max(0, position.y - 5);
+                } else if (event.key === "ArrowDown") {
+                    position.y = Math.min(140, position.y + 5);
+                } else if (event.key === "ArrowLeft") {
+                    position.x = Math.max(0, position.x - 5);
+                } else if (event.key === "ArrowRight") {
+                    position.x = Math.min(400, position.x + 5);
+                }
+                positions[selectedLetterIndex] = position;
+
+                drawWord();
+            }
+        }
+
+
+
+        function drawSimplifiedWord(uniqueLines) {
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+            uniqueLines.forEach(([a, b, c, d]) => {
+                ctx.beginPath();
+                ctx.moveTo(a, b);
+                ctx.lineTo(c, d);
+                ctx.stroke();
+            });
+        }
+
+
+
+        function minimizeLines(lines) {
+            let mergedLines = [];
+            let horizontalLines = [];
+            let verticalLines = [];
+            let diagonalLines = [];
+
+            lines.forEach(([x1, y1, x2, y2]) => {
+                if (x1 === x2) {
+                    verticalLines.push([x1, Math.min(y1, y2), x2, Math.max(y1, y2)]);
+                } else if (y1 === y2) {
+                    horizontalLines.push([Math.min(x1, x2), y1, Math.max(x1, x2), y2]);
+                } else {
+                    diagonalLines.push([x1, y1, x2, y2]);
+                }
+            });
+
+            horizontalLines.sort((a, b) => (a[1] === b[1] ? a[0] - b[0] : a[1] - b[1]));
+            verticalLines.sort((a, b) => (a[0] === b[0] ? a[1] - b[1] : a[0] - b[0]));
+
+            let mergedHorizontals = [];
+            for (let line of horizontalLines) {
+                if (
+                    mergedHorizontals.length > 0 &&
+                    mergedHorizontals[mergedHorizontals.length - 1][1] === line[1] &&
+                    mergedHorizontals[mergedHorizontals.length - 1][2] === line[0]
+                ) {
+                    mergedHorizontals[mergedHorizontals.length - 1][2] = line[2];
+                } else {
+                    mergedHorizontals.push(line);
+                }
+            }
+
+            let mergedVerticals = [];
+            for (let line of verticalLines) {
+                if (
+                    mergedVerticals.length > 0 &&
+                    mergedVerticals[mergedVerticals.length - 1][0] === line[0] &&
+                    mergedVerticals[mergedVerticals.length - 1][3] === line[1]
+                ) {
+                    mergedVerticals[mergedVerticals.length - 1][3] = line[3];
+                } else {
+                    mergedVerticals.push(line);
+                }
+            }
+
+            mergedLines = [...mergedHorizontals, ...mergedVerticals, ...diagonalLines];
+
+            return mergedLines;
+        }
+
+
+
+        window.simplifyWord = function () {
+            let simplifiedLines = [];
+
+            positions.forEach(letterData => {
+                const letter = letterData.letter;
+                if (letterLines[letter]) {
+                    const lines = letterLines[letter].map(([a, b, c, d]) => {
+                        a += letterData.x;
+                        b += letterData.y;
+                        c += letterData.x;
+                        d += letterData.y;
+
+                        if (c < a || (c === a && d < b)) {
+                            [a, b, c, d] = [c, d, a, b];
+                        }
+
+                        return [a, b, c, d];
+                    });
+
+                    simplifiedLines.push(...lines);
+                }
+            });
+
+            const lineCounts = {};
+            simplifiedLines.forEach(line => {
+                const lineKey = JSON.stringify(line);
+                lineCounts[lineKey] = (lineCounts[lineKey] || 0) + 1;
+            });
+
+            const uniqueLines = simplifiedLines.filter(line => {
+                const lineKey = JSON.stringify(line);
+                return lineCounts[lineKey] === 1;
+            });
+
+            drawSimplifiedWord(uniqueLines);
+            let minimizedLines = minimizeLines(uniqueLines);
+
+            let sides = makeSides(minimizedLines, patternDepth);
+            makePDF(minimizedLines, sides, patternHeight, patternDepth);
+        };
+
+
+
+        function makeSides(lines, depth) {
+            const result = [];
+            depth = depth * 70;
+            lines.forEach(([x1, y1, x2, y2]) => {
+                const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+
+                const point1 = [0, 0];
+                const point2 = [0, length];
+                const point3 = [depth, 0];
+                const point4 = [depth, length];
+
+
+                const side1 = [point1, point2];
+                const side2 = [point2, point4];
+                const side3 = [point4, point3];
+                const side4 = [point3, point1];
+
+                result.push([side1, side2, side3, side4]);
+            });
+
+            return result;
+        }
+
+        import("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js")
+    .then(() => {
+        const { jsPDF } = window.jspdf;
+
+        window.makePDF = function (lines, sides, height, depth) {
+            const doc = new jsPDF({
+                orientation: "portrait",
+                unit: "in",
+                format: "letter"
+            });
+
+            const conversionFactor = height / 70;
+            const depthconversionFactor = depth / 70;
+            const seamAllowance = 0.2; // Adjust this value to set the seam allowance
+
+            doc.setLineWidth(0.02);
+
+            // Expand each line to include seam allowance
+            lines.forEach(([a, b, c, d]) => {
+                let x1 = (a - 40) * conversionFactor;
+                let y1 = (b + 10) * conversionFactor;
+                let x2 = (c - 40) * conversionFactor;
+                let y2 = (d + 10) * conversionFactor;
+
+                // Expand the line outward slightly
+                if (x1 < x2) {
+                    x1 -= seamAllowance;
+                    x2 += seamAllowance;
+                } else {
+                    x1 += seamAllowance;
+                    x2 -= seamAllowance;
+                }
+                if (y1 < y2) {
+                    y1 -= seamAllowance;
+                    y2 += seamAllowance;
+                } else {
+                    y1 += seamAllowance;
+                    y2 -= seamAllowance;
+                }
+
+                doc.line(x1, y1, x2, y2);
+            });
+
+            // Expand each rectangle to include seam allowance
+            sides.forEach(rectangle => {
+                doc.addPage();
+
+                rectangle.forEach(rectLines => {
+                    let a = rectLines[0][0];
+                    let b = rectLines[0][1];
+                    let c = rectLines[1][0];
+                    let d = rectLines[1][1];
+
+                    a = (a + 10) * depthconversionFactor - seamAllowance;
+                    b = (b + 10) * conversionFactor - seamAllowance;
+                    c = (c + 10) * depthconversionFactor + seamAllowance;
+                    d = (d + 10) * conversionFactor + seamAllowance;
+
+                    doc.line(b, a, d, c);
+                });
+            });
+
+            doc.save("lines_and_rectangles_with_seam.pdf");
+        };
+    })
+    .catch(error => console.error("Error loading jsPDF:", error));
+
+
+
+
+        // import("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js")
+        //     .then(() => {
+        //         const { jsPDF } = window.jspdf;
+
+        //         window.makePDF = function (lines, sides, height, depth) {
+        //             const doc = new jsPDF({
+        //                 orientation: "portrait",
+        //                 unit: "in",
+        //                 format: "letter"
+        //             });
+
+        //             const conversionFactor = height / 70;
+        //             doc.setLineWidth(0.02);
+
+        //             lines.forEach(([a, b, c, d]) => {
+        //                 doc.line((a - 40) * conversionFactor, (b + 10) * conversionFactor,
+        //                     (c - 40) * conversionFactor, (d + 10) * conversionFactor);
+        //             });
+
+
+        //             const depthconversionFactor = depth / 70;
+
+
+        //             sides.forEach(rectangle => {
+        //                 doc.addPage()
+
+        //                 rectangle.forEach(rectLines => {
+        //                     let a = rectLines[0][0];
+        //                     let b = rectLines[0][1];
+        //                     let c = rectLines[1][0];
+        //                     let d = rectLines[1][1];
+
+        //                     a = (a + 10) * depthconversionFactor;
+        //                     b = (b + 10) * conversionFactor;
+        //                     c = (c + 10) * depthconversionFactor;
+        //                     d = (d + 10) * conversionFactor;
+
+        //                     doc.line(b, a, d, c);
+
+        //                 });
+
+        //             })
+
+        //             doc.save("lines_and_rectangles.pdf");
+        //         };
+        //     })
+        //     .catch(error => console.error("Error loading jsPDF:", error));
+
+
+
+        window.updateWordAndDraw = function () {
+            const newWord = document.getElementById("wordInput").value.toUpperCase();
+            const newHeight = document.getElementById("heightInput").value.toUpperCase();
+            const newDepth = document.getElementById("depthInput").value.toUpperCase();
+
+            selectedLetterIndex = -1;
+            if (newWord !== inputWord) {
+                inputWord = newWord;
+                updatePositions();
+            }
+
+            if (typeof newHeight === "number" && newHeight > 0.5 && newHeight <= 5) {
+                patternHeight = newHeight;
+            }
+
+            if (typeof newDepth === "number" && newDepth > 0.5 && newDepth <= 5) {
+                patternDepth = newDepth;
+            }
+
+
+
+            drawWord();
+        };
+
+
+        window.onload = () => {
+            document.getElementById("wordInput").value = "ABC";
+            updateWordAndDraw();
+
+            document.getElementById("canvas").addEventListener("click", selectLetter);
+            window.addEventListener("keydown", nudgeLetter);
+        };
+
+    </script>
+
+</body>
+
+</html>
