@@ -43,7 +43,7 @@
         <button onclick="simplifyWord()">Download</button>
     </div>
 
-    <canvas id="canvas" width="300" height="300" style="display: block; margin: 20px auto; transform: translateY(-20%);"></canvas>
+    <canvas id="canvas" width="600" height="300" style="display: block; margin: 20px auto; transform: translateY(-20%);"></canvas>
 
     <script type="module">
         import original from './original.js';
@@ -364,7 +364,7 @@
 
 
         window.onload = () => {
-            document.getElementById("wordInput").value = "ABC";
+            document.getElementById("wordInput").value = "MNO";
             updateWordAndDraw();
 
             document.getElementById("canvas").addEventListener("click", selectLetter);
