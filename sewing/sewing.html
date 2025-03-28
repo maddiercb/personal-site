@@ -56,7 +56,7 @@
         let patternDepth = 1;
 
 
-
+        
         function updatePositions() {
             positions = [];
             let xOffset = 50;
@@ -281,6 +281,8 @@
             return result;
         }
 
+
+
         import("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js")
     .then(() => {
         const { jsPDF } = window.jspdf;
@@ -293,38 +295,24 @@
             });
 
             const conversionFactor = height / 70;
-            const depthconversionFactor = depth / 70;
-            const seamAllowance = 0.2; // Adjust this value to set the seam allowance
-
             doc.setLineWidth(0.02);
 
-            // Expand each line to include seam allowance
             lines.forEach(([a, b, c, d]) => {
-                let x1 = (a - 40) * conversionFactor;
-                let y1 = (b + 10) * conversionFactor;
-                let x2 = (c - 40) * conversionFactor;
-                let y2 = (d + 10) * conversionFactor;
-
-                // Expand the line outward slightly
-                if (x1 < x2) {
-                    x1 -= seamAllowance;
-                    x2 += seamAllowance;
-                } else {
-                    x1 += seamAllowance;
-                    x2 -= seamAllowance;
-                }
-                if (y1 < y2) {
-                    y1 -= seamAllowance;
-                    y2 += seamAllowance;
-                } else {
-                    y1 += seamAllowance;
-                    y2 -= seamAllowance;
-                }
-
-                doc.line(x1, y1, x2, y2);
+                doc.line((a - 40) * conversionFactor, (b + 10) * conversionFactor,
+                    (c - 40) * conversionFactor, (d + 10) * conversionFactor);
             });
 
-            // Expand each rectangle to include seam allowance
+            const firstPageContent = doc.internal.pages[0];
+
+            doc.addPage();
+
+            lines.forEach(([a, b, c, d]) => {
+                doc.line((a - 40) * conversionFactor, (b + 10) * conversionFactor,
+                    (c - 40) * conversionFactor, (d + 10) * conversionFactor);
+            });
+
+            const depthconversionFactor = depth / 70;
+
             sides.forEach(rectangle => {
                 doc.addPage();
 
@@ -334,70 +322,19 @@
                     let c = rectLines[1][0];
                     let d = rectLines[1][1];
 
-                    a = (a + 10) * depthconversionFactor - seamAllowance;
-                    b = (b + 10) * conversionFactor - seamAllowance;
-                    c = (c + 10) * depthconversionFactor + seamAllowance;
-                    d = (d + 10) * conversionFactor + seamAllowance;
+                    a = (a + 10) * depthconversionFactor;
+                    b = (b + 10) * conversionFactor;
+                    c = (c + 10) * depthconversionFactor;
+                    d = (d + 10) * conversionFactor;
 
                     doc.line(b, a, d, c);
                 });
             });
 
-            doc.save("lines_and_rectangles_with_seam.pdf");
+            doc.save("lines_and_rectangles.pdf");
         };
     })
     .catch(error => console.error("Error loading jsPDF:", error));
-
-
-
-
-        // import("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js")
-        //     .then(() => {
-        //         const { jsPDF } = window.jspdf;
-
-        //         window.makePDF = function (lines, sides, height, depth) {
-        //             const doc = new jsPDF({
-        //                 orientation: "portrait",
-        //                 unit: "in",
-        //                 format: "letter"
-        //             });
-
-        //             const conversionFactor = height / 70;
-        //             doc.setLineWidth(0.02);
-
-        //             lines.forEach(([a, b, c, d]) => {
-        //                 doc.line((a - 40) * conversionFactor, (b + 10) * conversionFactor,
-        //                     (c - 40) * conversionFactor, (d + 10) * conversionFactor);
-        //             });
-
-
-        //             const depthconversionFactor = depth / 70;
-
-
-        //             sides.forEach(rectangle => {
-        //                 doc.addPage()
-
-        //                 rectangle.forEach(rectLines => {
-        //                     let a = rectLines[0][0];
-        //                     let b = rectLines[0][1];
-        //                     let c = rectLines[1][0];
-        //                     let d = rectLines[1][1];
-
-        //                     a = (a + 10) * depthconversionFactor;
-        //                     b = (b + 10) * conversionFactor;
-        //                     c = (c + 10) * depthconversionFactor;
-        //                     d = (d + 10) * conversionFactor;
-
-        //                     doc.line(b, a, d, c);
-
-        //                 });
-
-        //             })
-
-        //             doc.save("lines_and_rectangles.pdf");
-        //         };
-        //     })
-        //     .catch(error => console.error("Error loading jsPDF:", error));
 
 
 
