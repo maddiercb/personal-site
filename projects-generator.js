@@ -26,7 +26,7 @@ function createProjectCard(p) {
     const card = document.createElement("div");
     card.className = "card" + (p.comingSoon ? " coming-soon" : "");
     card.dataset.bsToggle = "modal";
-    card.dataset.bsTarget = `#${p.abbrev}cardModal`;
+    card.dataset.bsTarget = `#${p.title}cardModal`;
 
     const coverPath = `images/${p.folder}/${p.cover}`;
 
@@ -49,11 +49,11 @@ function createProjectCard(p) {
 function createModal(p) {
     const modal = document.createElement("div");
     modal.className = "modal fade";
-    modal.id = `${p.abbrev}cardModal`;
+    modal.id = `${p.title}cardModal`;
     modal.tabIndex = -1;
     modal.setAttribute("aria-hidden", "true");
 
-    const carouselId = `${p.abbrev}carouselCard`;
+    const carouselId = `${p.title}carouselCard`;
 
     // Build carousel items
     let carouselItems = "";
