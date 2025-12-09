@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maddie Burroughs - AOC Template</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Hi+Melody&family=Molengo&family=Orbitron:wght@400..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">
+                Maddie Burroughs<br>
+                <span class="navbar-tagline">designer && developer</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/projects.html">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./resume/MaddieBurroughsResume.pdf" target="_blank">Resume</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="container my-5">
+
+        <!-- SECTION 1 -->
+        <section class="mb-5">
+            <h2>Section One Title</h2>
+            <h3>Subtitle for Section One</h3>
+
+            <canvas id="canvas1" width="400" height="200" style="border:1px solid #ccc;"></canvas>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section class="mb-5">
+            <h2>Section Two Title</h2>
+            <h3>Subtitle for Section Two</h3>
+
+            <canvas id="canvas2" width="400" height="200" style="border:1px solid #ccc;"></canvas>
+        </section>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        function drawCircle(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext("2d");
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height / 2, 40, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        drawCircle("canvas1");
+        drawCircle("canvas2");
+    </script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
