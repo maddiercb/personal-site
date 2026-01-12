@@ -13,10 +13,14 @@ body {
     color: var(--offwhite);
 }
 
-.nav-link.active {
-    text-decoration: underline wavy;
+.navbar-dark .nav-link.active {
+    color: var(--offwhite);
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
     text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
 }
+
 
 .container-fluid {
     margin-top: -1rem;
@@ -227,7 +231,6 @@ body {
 /*      NEW — PREVENT IMAGE FLASHING / POP-IN            */
 /* ------------------------------------------------------ */
 
-/* Card cover images */
 .card img {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
@@ -239,7 +242,6 @@ body {
     opacity: 1;
 }
 
-/* Modal carousel images */
 .carousel-inner img {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
@@ -252,8 +254,84 @@ body {
     opacity: 1;
 }
 
-/* Keep carousel space stable to prevent layout jump */
 .carousel-inner {
     aspect-ratio: 16 / 9;
     background-color: #000; /* prevents white flash behind images */
+}
+
+/* ------------------------------------------------------ */
+/*      ARCADE STYLING                                    */
+/* ------------------------------------------------------ */
+
+#arcadeCards {
+    display: flex;              
+    flex-wrap: wrap;        
+    gap: 2rem 3rem;         
+    justify-content: flex-start;
+}
+
+#arcadeCards .game-tile {
+    text-align: center;
+    cursor: default;           
+    display: inline-block;   
+    width: auto;
+}
+
+#arcadeCards .game-tile:hover .cartridge {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+#arcadeCards .cartridge {
+    background: #555;
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;            
+    margin: 0;               
+    position: relative;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    cursor: pointer;          
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#arcadeCards .label {
+    background: black;
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    padding: 6px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+#arcadeCards .cover-art {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border-radius: 4px;
+}
+
+#arcadeCards .game-description {
+    margin-top: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    color: #222;
+}
+
+.navbar-game-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Orbitron', sans-serif; 
+    font-weight: bold;
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem); 
+    color: #F58F7C; 
+    text-shadow: 1px 1px 3px #000; 
+    pointer-events: none; 
+    white-space: nowrap;
 }

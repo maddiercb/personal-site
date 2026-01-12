@@ -28,7 +28,7 @@ function createProjectCard(p) {
     card.dataset.bsToggle = "modal";
     card.dataset.bsTarget = `#${p.title}cardModal`;
 
-    const coverPath = `images/${p.folder}/${p.cover}`;
+    const coverPath = `./projectGallery/images/${p.folder}/${p.cover}`;
 
     card.innerHTML = `
         ${p.comingSoon ? '<div class="ribbon">Coming Soon!</div>' : ''}
@@ -58,7 +58,7 @@ function createModal(p) {
     // Build carousel items
     let carouselItems = "";
     (p.images || []).forEach((filename, i) => {
-        const src = `images/${p.folder}/${filename}`;
+        const src = `./projectGallery/images/${p.folder}/${filename}`;
         carouselItems += `
             <div class="carousel-item ${i === 0 ? "active" : ""}">
                 <img src="${src}" class="d-block w-100" loading="lazy" alt="">

@@ -61,10 +61,11 @@ const projects = [
     cover: "cover.webp",
     // images: ["01.TODO", "02.TODO", "03.TODO"],
     modalHTML: `
-        TODO`
+    TODO`
   },
-
-
+  
+  
+  // Add more projects here...
 
 
 
@@ -120,5 +121,4 @@ const projects = [
     `
   },
 
-  // Add more projects here...
 ];
