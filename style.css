@@ -335,3 +335,49 @@ body {
     pointer-events: none; 
     white-space: nowrap;
 }
+
+
+/* Game tile wrapper */
+.game-tile {
+  display: inline-block;
+  margin: 1rem;
+  vertical-align: top;
+}
+
+/* The cartridge itself */
+.cartridge {
+  width: 200px;
+  background-color: var(--offwhite);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cartridge:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+}
+
+/* Label on top of cartridge */
+.cartridge .label {
+  text-align: center;
+  font-weight: bold;
+  padding: 0.5rem;
+  background-color: var(--dark-color);
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* Cover art image */
+.cartridge .cover-art {
+  width: 100%;
+  display: block;
+}
+
+/* Optional description */
+.game-description {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+}
