@@ -19,8 +19,7 @@ let gameState = 0;
 let deck = [];
 let cards = [];
 
-
-
+let hintHeld = false;
 
 
 // --------------------------------------------------------------
@@ -274,7 +273,7 @@ function drawCardBack(x, y, w, h) {
   ctx.fillText("🂠", x + w / 2, y + h / 2);
 }
 
-function drawCards() {
+function drawCards(showAll = hintHeld) {
   if (!cards.length) return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -313,7 +312,7 @@ function drawCards() {
   for (let i = 0; i < cards.length; i++) {
     const x = startX + i * (cardWidth + spacing);
 
-    if (i < gameState) {
+    if (i < gameState || showAll) {
       ctx.drawCard(x, y, cards[i], cardWidth, cardHeight); // face up
     } else {
       drawCardBack(x, y, cardWidth, cardHeight); // face down
@@ -335,12 +334,21 @@ window.addEventListener("keydown", (e) => {
     return;
   }
 
-  if (e.key >= "0" && e.key <= "4") {
-    gameState = Number(e.key);
-    drawCards();
-  }
   if (e.key === "r") {
     resetGame();
+  }
+
+  if (e.key === "h") {
+    hintHeld = true;
+    drawCards();
+  }
+});
+
+window.addEventListener("keyup", (e) => {
+  // H key released
+  if (e.key === "h") {
+    hintHeld = false;
+    drawCards();
   }
 });
 

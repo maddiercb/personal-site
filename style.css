@@ -258,126 +258,170 @@ body {
     aspect-ratio: 16 / 9;
     background-color: #000; /* prevents white flash behind images */
 }
-
 /* ------------------------------------------------------ */
 /*      ARCADE STYLING                                    */
 /* ------------------------------------------------------ */
 
+/* Layout */
 #arcadeCards {
-    display: flex;              
-    flex-wrap: wrap;        
-    gap: 2rem 3rem;         
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 3rem;
     justify-content: flex-start;
 }
 
-#arcadeCards .game-tile {
+/* ------------------------------------------------------ */
+/* GAME TILE                                              */
+/* ------------------------------------------------------ */
+
+.game-tile {
+    display: inline-block;
     text-align: center;
-    cursor: default;           
-    display: inline-block;   
-    width: auto;
+    cursor: default;
 }
 
-#arcadeCards .game-tile:hover .cartridge {
+/* Hover motion */
+.game-tile:hover .cartridge {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 20px #444;
 }
 
-#arcadeCards .cartridge {
-    background: #555;
-    border-radius: 10px;
-    padding: 10px;
-    width: 200px;            
-    margin: 0;               
+/* ------------------------------------------------------ */
+/* CARTRIDGE                                              */
+/* ------------------------------------------------------ */
+
+.cartridge {
+    width: 200px;
+    padding: 10px 15px 30px;
+    margin: 0;
+
+    background: #888;
+    border-radius: 3px;
     position: relative;
+    cursor: pointer;
+
     box-shadow: 0 5px 10px rgba(0,0,0,0.15);
-    cursor: pointer;          
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-#arcadeCards .label {
-    background: black;
-    color: white;
+.cartridge::before {
+    content: "";
+    position: absolute;
+
+    /* position stripes behind the label */
+    top: 10px;
+    left: 0;
+    right: 0;
+    height: 40px;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 6px,
+            #575656 6px,
+            #575656 10px
+            /* rgba(0,0,0,0.25) 6px,
+            rgba(0,0,0,0.25) 8px */
+        );
+
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cartridge::after {
+    content: "";
+    position: absolute;
+
+    left: 50%; /* center horizontally */
+    top: calc(91%); /* adjust vertical position: 50% of cartridge + offset */
+    transform: translateX(-50%);
+
+    width: 0;
+    height: 0;
+
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #5c5a5a; /* triangle color */
+    z-index: 2; /* sits above stripes */
+}
+
+
+/* ------------------------------------------------------ */
+/* LABEL                                                  */
+/* ------------------------------------------------------ */
+
+.label {
+    margin: 4px auto 9px; 
+    padding: 6px;
+    width: 90%;
+    box-sizing: border-box;
+
+    background: #5c5a5a;
+    color: #909090;
+
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     text-align: center;
-    padding: 6px;
-    border-radius: 6px;
-    margin-bottom: 10px;
+
+    border-radius: 30px;
+    border: 1px solid #333;
+    box-shadow: inset 0 0 6px #333, 0 0 0 6px #888;
+
+    position: relative;
+    z-index: 2;
+    
 }
 
-#arcadeCards .cover-art {
-    width: 100%;
+
+/* ------------------------------------------------------ */
+/* COVER ART                                              */
+/* ------------------------------------------------------ */
+
+.cover-art {
+    width: 90%;
     height: auto;
-    aspect-ratio: 1/1;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     display: block;
     margin: 0 auto;
+
     border-radius: 4px;
+    border: 4px solid #5c5a5a;
+
+    position: relative;
 }
 
-#arcadeCards .game-description {
+
+/* ------------------------------------------------------ */
+/* DESCRIPTION                                            */
+/* ------------------------------------------------------ */
+
+.game-description {
     margin-top: 0.5rem;
+
     font-family: 'Orbitron', sans-serif;
     font-size: 0.9rem;
     color: #222;
+    text-align: center;
 }
+
+/* ------------------------------------------------------ */
+/* NAVBAR GAME TITLE                                      */
+/* ------------------------------------------------------ */
 
 .navbar-game-title {
     position: absolute;
+    top: calc(50% - 0.75em);
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Orbitron', sans-serif; 
+    transform: translateX(-50%);
+
+    font-family: 'Orbitron', sans-serif;
     font-weight: bold;
-    font-size: clamp(1.5rem, 2.5vw, 2.5rem); 
-    color: #F58F7C; 
-    text-shadow: 1px 1px 3px #000; 
-    pointer-events: none; 
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+    color: #F58F7C;
+
+    text-shadow: 1px 1px 3px #000;
+    pointer-events: none;
     white-space: nowrap;
-}
-
-
-/* Game tile wrapper */
-.game-tile {
-  display: inline-block;
-  margin: 1rem;
-  vertical-align: top;
-}
-
-/* The cartridge itself */
-.cartridge {
-  width: 200px;
-  background-color: var(--offwhite);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cartridge:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-}
-
-/* Label on top of cartridge */
-.cartridge .label {
-  text-align: center;
-  font-weight: bold;
-  padding: 0.5rem;
-  background-color: var(--dark-color);
-  color: #fff;
-  font-size: 1rem;
-}
-
-/* Cover art image */
-.cartridge .cover-art {
-  width: 100%;
-  display: block;
-}
-
-/* Optional description */
-.game-description {
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  text-align: center;
 }

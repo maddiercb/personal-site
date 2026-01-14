@@ -9,7 +9,7 @@ const games = [
     comingSoon: false,
     image: "../games/P1/cover.webp",
     description: "",
-    link: "../games/P1/P1-RideTheBus.html"
+    link: "../games/P1/RideTheBus.html"
   },
 
   {
