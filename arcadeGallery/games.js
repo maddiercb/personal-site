@@ -7,19 +7,18 @@ const games = [
     title: "Ride the Bus",
     include: true, 
     comingSoon: false,
-    image: "../games/P1/cover.webp",
+    image: "../games/P1-RideTheBus/cover.webp",
     description: "",
-    link: "../games/P1/RideTheBus.html"
+    link: "../games/RideTheBus.html"
   },
 
   {
-    title: "IQ Puzzler",
-    include: false, 
-    comingSoon: true,
-    // comingSoon: "January 26th",
-    image: "iq-puzzler.webp",
-    description: "TODO iq puzzler description",
-    link: "./games/template/P1-RideTheBus.html"
+    title: "Hexcodle",
+    include: true, 
+    comingSoon: false,
+    image: "../games/P2-Hexcodle/cover.webp",
+    description: "",
+    link: "../games/Hexcodle.html"
   },
 
   // Add more games here...
