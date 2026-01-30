@@ -419,7 +419,7 @@ body {
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
     font-size: clamp(1.5rem, 2.5vw, 2.5rem);
-    color: #F58F7C;
+    color: var(--dark-color);
 
     text-shadow: 1px 1px 3px #000;
     pointer-events: none;

@@ -1,0 +1,197 @@
+/* ------------------------------
+   General Layout
+------------------------------ */
+:root {
+    --target-color: #F58F7C;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+#gameContainer {
+    position: fixed;
+    inset: 10%;
+    top: max(125px, 10%);
+    bottom: 5%;
+    background: #111;
+    border-radius: 3px;
+    border: 4px solid var(--target-color);
+    box-sizing: border-box;
+    min-height: 550px;
+}
+
+#hexcodleGame {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ------------------------------
+   Color Displays
+------------------------------ */
+#colorMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#colorDisplays {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+#targetColor,
+#guessColor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    flex: 1;
+    max-width: 500px;
+}
+
+#targetColorText,
+#guessColorText {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+#targetColorDisplay,
+#guessColorDisplay {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    border: 4px solid white;
+    border-radius: 30px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* ------------------------------
+   Guess List
+------------------------------ */
+#pastGuesses {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-top: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#guessesLeftText {
+    margin-top: 6px;
+    font-size: 0.95rem;
+    color: #aaa;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-align: center;
+}
+
+/* ------------------------------
+   Guess Row & Boxes
+------------------------------ */
+.guess {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.guessResult {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    min-width: 50px;
+    max-width: 80px;
+    border: 4px solid white;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+.guessChar {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    line-height: 1;
+    text-align: center;
+}
+
+.guessCharResult {
+    font-size: 2em;
+    line-height: 1;
+    margin-top: 2px;
+    text-align: center;
+}
+
+/* ------------------------------
+   Input + Button
+------------------------------ */
+#guessingBox {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+    align-items: center;
+}
+
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.hash-prefix {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: white;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 1.2rem;
+    user-select: none;
+}
+
+#guessInput {
+    background: #1b1b1b;
+    color: white;
+    border: 4px solid white;
+    border-radius: 16px;
+    padding: 0.65rem 0.9rem 0.65rem 1.8rem;
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-align: left;
+    width: 165px;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+}
+
+#submitGuessButton {
+    background: #1b1b1b;
+    color: white;
+    border: 4px solid white;
+    border-radius: 16px;
+    padding: 0.65rem 1.1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    font-family: inherit;
+}

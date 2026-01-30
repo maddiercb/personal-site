@@ -14,6 +14,7 @@ const STATE_PLAYING = 'playing';
 const STATE_WIN = "win";
 const STATE_LOSE = "lose";
 
+let canClickToReset = false;
 let gameStatus = STATE_PLAYING;
 let gameState = 0;
 let deck = [];
@@ -127,15 +128,19 @@ function handleGuess(guess) {
   }
 
   drawCards();
+
   setTimeout(() => {
     if (gameStatus === STATE_WIN) {
-      showEndMessage("You Win :) Press any key to continue!");
+      showEndMessage("You Win :) Click anywhere to continue!");
+      canClickToReset = true;
     } else if (gameStatus === STATE_LOSE) {
-      showEndMessage("You Lose :( Press any key to try again!");
-    } else if (gameStatus === STATE_PLAYING) {
+      showEndMessage("You Lose :( Click anywhere to try again!");
+      canClickToReset = true;
+    } else {
       renderButtons();
     }
   }, 300);
+
 }
 
 
@@ -180,6 +185,8 @@ function isInside(cardA, cardB, cardC) {
 // Game State Logic
 // --------------------------------------------------------------
 function resetGame() {
+  canClickToReset = false;
+
   buildDeck();
   cards = [];
   gameState = 0;
@@ -188,11 +195,10 @@ function resetGame() {
   for (let i = 0; i < 4; i++) {
     cards.push(drawFromDeck());
   }
+
   drawCards();
   renderButtons();
 }
-
-
 
 
 
@@ -328,12 +334,6 @@ function drawCards(showAll = hintHeld) {
 // Input Handling
 // --------------------------------------------------------------
 window.addEventListener("keydown", (e) => {
-  if (gameStatus !== STATE_PLAYING) {
-    gameStatus = STATE_PLAYING;
-    resetGame();
-    return;
-  }
-
   if (e.key === "r") {
     resetGame();
   }
@@ -352,8 +352,12 @@ window.addEventListener("keyup", (e) => {
   }
 });
 
+window.addEventListener("click", () => {
+  if (!canClickToReset) return;
 
-
+  canClickToReset = false;
+  resetGame();
+});
 
 
 // -------------------------------
