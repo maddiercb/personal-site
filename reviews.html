@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
+    <title>Reviews</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,18 +24,31 @@
     <!-- Add navbar -->
     <div id="navbar"></div>
 
-    <!-- Project cards -->
-    <div class="container py-5">
-        <div id="projectCards" class="card-columns"></div>
-    </div>
+    <!-- Page Intro -->
 
-    <!-- Project modal, when opened -->
-    <div id="projectModals"></div>
+    <section class="container py-5 intro-section">
+        <p class="lead bio-text">
+            Hey there! I love diving into stories - whether on the page or on the stage - and sharing my thoughts!
+            I've been writing reviews for Buzz Center Stage, and want to get into reviewing more books, experiences, you
+            name it!
+            Here you'll find some of my latest reviews, a little window into recent stories and experiences!
+            <br><br>
+            Have something you think I should review?
+            <br>
+            Shoot me an email at maddiercb@gmail.com!
+        </p>
+    </section>
+
+    <!-- Review cards -->
+    <section class="container pb-5">
+        <div id="reviewCards" class="row g-4"></div>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./projectGallery/projects.js"></script>
-    <script src="./projectGallery/projects-generator.js"></script>
+    <script src="./reviews/reviews.js"></script>
+    <script src="./reviews/review-generator.js"></script>
     <script src="/components/_loadComponents.js"></script>
 
 </body>
+
 </html>
