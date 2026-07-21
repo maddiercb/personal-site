@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Polaroid from "../components/Polaroid.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Layout title="Projects">
+  <section class="wrap">
+    <div class="gallery">
+      {projects.map((p) => <Polaroid {...p.data} />)}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+</style>
