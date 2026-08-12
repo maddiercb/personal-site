@@ -1,0 +1,140 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import Polaroid from "../components/Polaroid.astro";
+import ProjectModal from "../components/ProjectModal.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const entries = await Promise.all(
+  projects.map(async (p) => ({
+    ...p,
+    modalId: `project-${p.id}`,
+    Content: (await render(p)).Content,
+  })),
+);
+
+const open = entries.filter((p) => !p.data.comingSoon);
+---
+
+<Layout title="Projects">
+  <section class="wrap">
+    <div class="gallery">
+      {entries.map((p) => <Polaroid id={p.modalId} {...p.data} />)}
+    </div>
+  </section>
+
+  {
+    open.map((p) => (
+      <ProjectModal id={p.modalId} {...p.data}>
+        <p.Content />
+      </ProjectModal>
+    ))
+  }
+</Layout>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+</style>
+
+<script>
+  function initCarousel(dialog: HTMLDialogElement) {
+    const track = dialog.querySelector<HTMLElement>("[data-track]");
+    if (!track) return null;
+
+    const dots = [...dialog.querySelectorAll<HTMLElement>("[data-dot]")];
+    const count = track.children.length;
+    let index = 0;
+
+    const paint = () =>
+      dots.forEach((dot, i) =>
+        dot.setAttribute("aria-current", String(i === index)),
+      );
+
+    // .track carries `scroll-behavior: smooth`, so assigning scrollLeft
+    // animates — and drops to a jump under prefers-reduced-motion.
+    const go = (i: number) => {
+      index = ((i % count) + count) % count;
+      track.scrollLeft = index * track.clientWidth;
+      paint();
+    };
+
+    dialog
+      .querySelector("[data-prev]")
+      ?.addEventListener("click", () => go(index - 1));
+    dialog
+      .querySelector("[data-next]")
+      ?.addEventListener("click", () => go(index + 1));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => go(i)));
+
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      go(index + (event.key === "ArrowRight" ? 1 : -1));
+    });
+
+    // Catches touch swipes, which move the track without going through go().
+    // Debounced so a smooth scroll in flight doesn't report its midpoints.
+    let settle: ReturnType<typeof setTimeout>;
+    track.addEventListener(
+      "scroll",
+      () => {
+        clearTimeout(settle);
+        settle = setTimeout(() => {
+          if (!track.clientWidth) return;
+          index = Math.round(track.scrollLeft / track.clientWidth);
+          paint();
+        }, 100);
+      },
+      { passive: true },
+    );
+
+    return {
+      reset() {
+        // Jump rather than animate while the dialog is opening.
+        track.style.scrollBehavior = "auto";
+        index = 0;
+        track.scrollLeft = 0;
+        track.style.scrollBehavior = "";
+        paint();
+      },
+    };
+  }
+
+  const carousels = new Map<HTMLDialogElement, ReturnType<typeof initCarousel>>();
+
+  document
+    .querySelectorAll<HTMLDialogElement>("dialog.project")
+    .forEach((dialog) => {
+      carousels.set(dialog, initCarousel(dialog));
+
+      dialog
+        .querySelector("[data-close]")
+        ?.addEventListener("click", () => dialog.close());
+
+      // Clicks land on the dialog itself only when they hit the backdrop.
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+    });
+
+  document.querySelectorAll<HTMLElement>("[data-open]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const dialog = document.getElementById(button.dataset.open!);
+      if (!(dialog instanceof HTMLDialogElement)) return;
+
+      dialog.showModal();
+      // showModal() focuses the first control inside, which makes the close
+      // button open in its focus state. Park focus on the dialog instead.
+      dialog.focus();
+      carousels.get(dialog)?.reset();
+    });
+  });
+</script>

@@ -1,0 +1,272 @@
+---
+import { Image } from "astro:assets";
+
+const { id, title, byline, gallery = [] } = Astro.props;
+---
+
+{/* tabindex makes the dialog itself focusable so the open handler can park
+    focus here — otherwise showModal() focuses the first control inside (the
+    close button) and it opens looking pressed. */}
+<dialog id={id} class="project" aria-labelledby={`${id}-title`} tabindex="-1">
+  <button type="button" class="close" data-close aria-label="Close">&times;</button>
+
+  {
+    gallery.length > 0 && (
+      <div class="carousel">
+        <div class="track" data-track>
+          {gallery.map((img, i) => (
+            <Image
+              src={img}
+              alt={`${title} — photo ${i + 1} of ${gallery.length}`}
+              class="slide"
+              widths={[600, 900, 1200]}
+              sizes="(max-width: 860px) 92vw, 760px"
+              loading={i === 0 ? "eager" : "lazy"}
+            />
+          ))}
+        </div>
+
+        {gallery.length > 1 && (
+          <>
+            <button type="button" class="nav prev" data-prev aria-label="Previous photo">
+              &#8249;
+            </button>
+            <button type="button" class="nav next" data-next aria-label="Next photo">
+              &#8250;
+            </button>
+
+            <div class="dots">
+              {gallery.map((_, i) => (
+                <button type="button" class="dot" data-dot={i} aria-label={`Go to photo ${i + 1}`} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    )
+  }
+
+  <div class="body">
+    <h2 id={`${id}-title`}>{title}</h2>
+    <p class="byline">{byline}</p>
+    <div class="prose"><slot /></div>
+  </div>
+</dialog>
+
+<style>
+  .project {
+    width: min(820px, 92vw);
+    max-height: 90dvh;
+    padding: 1.25rem;
+    margin: auto;
+    border: none;
+    border-radius: 6px;
+    background: var(--offwhite);
+    color: #1a1a1a;
+    box-shadow: 6px 10px 30px rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+  }
+
+  /* The dialog only takes focus as the modal's entry point — it shouldn't
+     draw a ring. Controls inside keep their own focus-visible styles. */
+  .project:focus {
+    outline: none;
+  }
+
+  /* Open/close transition. Browsers without @starting-style just snap open. */
+  .project,
+  .project::backdrop {
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      background-color 0.2s ease,
+      overlay 0.2s allow-discrete,
+      display 0.2s allow-discrete;
+  }
+
+  .project {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  .project[open] {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .project::backdrop {
+    background-color: rgb(0 0 0 / 0);
+  }
+
+  .project[open]::backdrop {
+    background-color: rgb(0 0 0 / 0.72);
+  }
+
+  @starting-style {
+    .project[open] {
+      opacity: 0;
+      transform: scale(0.97);
+    }
+
+    .project[open]::backdrop {
+      background-color: rgb(0 0 0 / 0);
+    }
+  }
+
+  /* ---------- carousel ---------- */
+
+  .carousel {
+    position: relative;
+  }
+
+  .track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    /* The nav buttons just assign scrollLeft; this is what animates it. */
+    scroll-behavior: smooth;
+    border-radius: 2px;
+    scrollbar-width: none;
+  }
+
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    width: 100%;
+    /* Astro's <Image> emits width/height attrs — without height:auto the
+       height attribute wins and aspect-ratio is ignored. */
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .nav {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0 0 0.2rem;
+    border: none;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 0.5);
+    color: var(--offwhite);
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .nav:hover,
+  .nav:focus-visible {
+    background: var(--accent);
+  }
+
+  .prev {
+    left: 0.75rem;
+  }
+
+  .next {
+    right: 0.75rem;
+  }
+
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-top: 0.9rem;
+  }
+
+  .dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #c4c4c4;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .dot[aria-current="true"] {
+    background: var(--accent);
+  }
+
+  /* ---------- text ---------- */
+
+  .body {
+    padding-top: 1.25rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-style: italic;
+  }
+
+  .byline {
+    margin: 0.15rem 0 1rem;
+    color: #555;
+    font-size: 1rem;
+  }
+
+  .prose {
+    font-size: 1.05rem;
+  }
+
+  .prose :global(p) {
+    margin: 0 0 0.75rem;
+  }
+
+  .prose :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .prose :global(a) {
+    color: #b4543f;
+  }
+
+  .close {
+    position: absolute;
+    top: 1.75rem;
+    right: 1.75rem;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0 0 0.2rem;
+    border: none;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 0.5);
+    color: var(--offwhite);
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .close:hover,
+  .close:focus-visible {
+    background: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project,
+    .project::backdrop {
+      transition: none;
+    }
+
+    .track {
+      scroll-behavior: auto;
+    }
+  }
+</style>

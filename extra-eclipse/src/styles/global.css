@@ -1,0 +1,49 @@
+:root {
+  --bg: #222;
+  --accent: #f58f7c;
+  --offwhite: #f2f3f4;
+  --muted: #b8b8b8;
+
+  --font-display: "DynaPuff", system-ui, sans-serif;
+  --font-body: "Molengo", system-ui, sans-serif;
+
+  --nav-height: 88px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding-top: var(--nav-height);
+  background-color: var(--bg);
+  color: var(--offwhite);
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--offwhite);
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+/* Stop the page scrolling behind an open modal. */
+body:has(dialog[open]) {
+  overflow: hidden;
+}

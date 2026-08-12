@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import maddie from "../assets/maddie.jpg";
+---
+
+<Layout title="Maddie Burroughs">
+  <section class="home wrap">
+    <Image src={maddie} alt="Maddie Burroughs" class="photo" widths={[300, 400]} sizes="400px" />
+
+    <div class="bio">
+      <p>Hey, I'm Maddie :)</p>
+
+      <p>
+        In May 2025, I received a Bachelor of Science, double majoring in <span class="ece">Electrical &amp; Computer Engineering</span>
+        {" "}and <span class="dim">Design for Interactive Media</span> from Carnegie Mellon University.
+      </p>
+
+      <p>
+        I am passionate about enabling others to make incredible things and facilitating interactive
+        experiences as a means to learn and create!
+      </p>
+
+      <p>
+        I'm actively looking for opportunities to combine my interests in software, physical design,
+        and education — reach out anytime at{" "}
+        <a href="mailto:maddiercb@gmail.com">maddiercb@gmail.com</a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .photo {
+    width: 40%;
+    min-width: 300px;
+    max-width: 400px;
+    height: auto;
+    border-radius: 50%;
+    border: 4px solid var(--accent);
+  }
+
+  .bio p {
+    margin: 0 0 1.5rem;
+  }
+
+  .ece {
+    font-family: "Hi Melody", serif;
+    font-weight: bold;
+    font-size: 1.7rem;
+    color: plum;
+    text-shadow: 2px 2px 4px #000;
+  }
+
+  .dim {
+    font-family: "Orbitron", serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: lightskyblue;
+    text-shadow: 2px 2px 4px #000;
+  }
+
+  @media (max-width: 768px) {
+    .home {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>
