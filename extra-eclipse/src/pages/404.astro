@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Astro emits this as dist/404.html, which Cloudflare Pages serves with a
+// real 404 status for unmatched routes. Without it, Pages falls back to
+// index.html and every dead link returns 200.
+---
+
+<Layout title="Page not found" description="That page doesn't exist.">
+  <section class="wrap notfound">
+    <h1>404</h1>
+    <p class="lead">This one's lost in the woods.</p>
+    <p>
+      Try <a href="/">home</a> or <a href="/projects">projects</a> instead.
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .notfound {
+    text-align: center;
+    padding-top: 6rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(4rem, 18vw, 9rem);
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .lead {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.4rem;
+  }
+</style>
