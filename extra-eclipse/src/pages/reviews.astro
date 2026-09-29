@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import ReviewCard from "../components/ReviewCard.astro";
+
+const reviews = (await getCollection("reviews")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Layout title="Reviews">
+  <section class="wrap">
+    <div class="gallery">
+      {reviews.map((r) => <ReviewCard {...r.data} />)}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+</style>

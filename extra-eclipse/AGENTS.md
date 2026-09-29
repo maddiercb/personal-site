@@ -77,6 +77,14 @@ images use the zod `image()` helper and resolve relative to the markdown file,
 so they live in `src/assets/projects/<slug>/`, not `public/`. Adding a project
 means adding a markdown file; no code change.
 
+Reviews are a second collection — markdown in `src/content/reviews/`, rendered
+by `src/pages/reviews.astro`. They are frontmatter-only (no body): a review card
+links straight out to the published piece in a new tab instead of opening a
+modal, so there is nothing to render on this site. Covers are remote URLs on the
+publication's server rather than the `image()` helper, so there are no files to
+add alongside the markdown. Sorting is newest-first by `date`, which is used
+only for ordering and never shown on the card.
+
 `public/` is only for assets that must keep a stable URL and skip processing —
 currently favicons and the resume PDF.
 
