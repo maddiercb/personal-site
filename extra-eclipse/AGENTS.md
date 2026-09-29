@@ -85,6 +85,11 @@ publication's server rather than the `image()` helper, so there are no files to
 add alongside the markdown. Sorting is newest-first by `date`, which is used
 only for ordering and never shown on the card.
 
+To pull in newly published reviews, use the `add-reviews` skill
+(`.claude/skills/add-reviews/SKILL.md` at the repo root). It finds reviews on
+Maddie's Buzz Center Stage author page that aren't here yet, picks pull quotes
+to her standards, and writes the markdown files.
+
 `public/` is only for assets that must keep a stable URL and skip processing —
 currently favicons and the resume PDF.
 
